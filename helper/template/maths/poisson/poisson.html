@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Poisson Solver{% endblock %}
+{% block body %}
+    <body>
+        <div class="container my-3">
+            <h1 class="text-center pt-2 righteous text-dark"><a href="/" class="text-dark" style="text-decoration: none;">Poisson Solver</a></h1>
+            <p class="text-center montserrat-alt">Developed by Mohit Patil.</p>
+            <div class="container montserrat border border-dark rounded p-3" style="max-width: 480px;">
+            <form id="Poisson-form" action="calculate" method="post">
+                {% csrf_token %}
+                <h3 class="text-center righteous">Poisson Distribution Question</h3>
+                <p class="text-danger text-center montserrat-alt">Do not enter units or powers, Manage units at your own.</p>
+                <div class="form-group">
+                    <label for="m">Enter Average or Mean (m = np):</label>
+                    <input type="text" class="form-control montserrat-alt" placeholder="Enter m" id="m" name="m" required>
+                </div>
+                <p class="text-danger text-center montserrat-alt">Probability variable means r=3, r<3<br>Here 3 is the values which you have to input </p>
+                <div class="form-group">
+                    <label for="r">Enter Probability Variable (r):</label>
+                    <input type="text" class="form-control montserrat-alt" placeholder="Enter r" id="r" name="r" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary border border-dark" id="submit-button" name="submit" style="width:100%">Calculate</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </body>
+{% endblock %}
