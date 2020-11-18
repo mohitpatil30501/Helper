@@ -1,3 +1,6 @@
+from math import sqrt, erf
+
+
 class Binomial:
     def __init__(self, request):
         try:
@@ -56,7 +59,7 @@ class Binomial:
 
 
 class Poisson:
-    e = 2.718
+    e = 2.71828
 
     def __init__(self, request):
         try:
@@ -106,3 +109,58 @@ class Poisson:
         answer.append(round(sum_numbers, 8))
 
         return answer
+
+
+class Normal:
+    def __init__(self, request):
+        try:
+            self.m = float(request.POST.get('m'))
+            self.s = float(request.POST.get('s'))
+            self.limit = int(request.POST.get('limit'))
+            if self.limit == 1:
+                self.x = float(request.POST.get('x'))
+                self.z = self.a = self.area = None
+                self.last_limit = request.POST.get('last')
+            else:
+                self.x1 = float(request.POST.get('x1'))
+                self.x2 = float(request.POST.get('x2'))
+                self.z1 = self.z2 = self.a1 = self.a2 = self.area = None
+        except ValueError:
+            self.m = None
+
+    def authenticate_values(self):
+        if self.m is None:
+            return True
+        return False
+
+    def z_transform(self):
+        if self.limit == 1:
+            self.z = (self.x - self.m) / self.s
+        else:
+            self.z1 = (self.x1 - self.m) / self.s
+            self.z2 = (self.x2 - self.m) / self.s
+
+    def calculate_normal(self):
+        if self.limit == 1:
+            self.z_transform()
+            self.a = erf((self.x - self.m) / (self.s * sqrt(2))) / 2
+            if self.last_limit == "pos-infinity":
+                if self.z >= 0:
+                    self.area = 0.5 - self.a
+                else:
+                    self.area = 0.5 + self.a
+            else:
+                if self.z >= 0:
+                    self.area = 0.5 + self.a
+                else:
+                    self.area = 0.5 - self.a
+            return True
+        else:
+            if self.x1 <= self.x2:
+                self.z_transform()
+                self.a1 = erf((self.x1 - self.m) / (self.s * sqrt(2))) / 2
+                self.a2 = erf((self.x2 - self.m) / (self.s * sqrt(2))) / 2
+
+                self.area = self.a2 - self.a1
+                return True
+            return False
