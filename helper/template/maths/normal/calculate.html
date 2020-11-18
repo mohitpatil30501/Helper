@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Calculate{% endblock %}
+{% block body %}
+    <body>
+		<div class="container my-3">
+            <h1 class="text-center pt-2 righteous text-dark"><a href="/maths" class="text-dark" style="text-decoration: none;">Normal Solver</a></h1>
+            <p class="text-center montserrat-alt">Developed by Mohit Patil.</p>
+            <div class="container montserrat border border-dark rounded p-3" style="max-width: 480px;">
+            	<label class="righteous">Answer:</label>
+                {% if limit == 1 %}
+            	<p class="montserrat-alt">
+                    <b class="montserrat">Z-Transform of Starting Point (z)</b> = {{ z }}
+                    <br>
+                    <b class="montserrat">Area of Starting Point (a)</b> = {{ a }}
+                    <br>
+                    <b class="montserrat">Total Area (Answer)</b> = {{ area }}
+                </p>
+                {% else %}
+                    <p class="montserrat-alt">
+                        <b class="montserrat">Z-Transform of Lower (z1)</b> = {{ z1 }}
+                        <br>
+                        <b class="montserrat">Z-Transform of Higher (z2)</b> = {{ z2 }}
+                        <br>
+                        <b class="montserrat">Area of Lower (a1)</b> = {{ a1 }}
+                        <br>
+                        <b class="montserrat">Area of Higher (a2)</b> = {{ a2 }}
+                        <br>
+                        <b class="montserrat">Total Area (Answer)</b> = {{ area }}
+                    </p>
+                {% endif %}
+            	<br>
+            	<p class="montserrat-alt">Thanks For Using.....<br>Developed by Mohit M. Patil<br><b class="text-danger montserrat">Note:</b> This program is not fully capable to solve all question..<br>Some time it may get Errors or Wrong... <br><b class="text-danger montserrat">Please Crosscheck your answer & apply units and powers..</b><br>Don't misuse it, We are not responsible.</p>
+            </div>
+        </div>
+    </body>
+{% endblock %}

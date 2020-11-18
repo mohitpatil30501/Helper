@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Normal Solver{% endblock %}
+{% block body %}
+    <body>
+        <div class="container my-3">
+            <h1 class="text-center pt-2 righteous text-dark"><a href="/" class="text-dark" style="text-decoration: none;">Normal Solver</a></h1>
+            <p class="text-center montserrat-alt">Developed by Mohit Patil.</p>
+            <div class="container montserrat border border-dark rounded p-3" style="max-width: 480px;">
+            <form id="Normal-form" action="calculate" method="post">
+                {% csrf_token %}
+                <h3 class="text-center righteous">Normal Distribution Question</h3>
+                <p class="text-danger text-center montserrat-alt">Do not enter units or powers, Manage units at your own.</p>
+                <div class="form-group">
+                    <label for="m">Enter Mean (m):</label>
+                    <input type="text" class="form-control montserrat-alt" placeholder="Enter m" id="m" name="m" required>
+                </div>
+                <div class="form-group">
+                    <label for="s">Enter Sigma (σ):</label>
+                    <input type="text" class="form-control montserrat-alt" placeholder="Enter s" id="s" name="s" required>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="limit" id="limit1" value="1" checked>
+                        <label class="form-check-label" for="limit1">
+                        One Limit
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="limit" id="limit2" value="2">
+                        <label class="form-check-label" for="limit2">
+                        Two Limits
+                        </label>
+                    </div>
+                </div>
+
+                <div class="1 selectt form-group" style="display: block">
+                    <p class="text-danger text-center montserrat-alt">Probability variable means r ≤ -3<br>Here -3 is Starting and -∞ is Last values which you have to input Starting value</p>
+                    <div class="form-group">
+                        <label for="x">Enter Starting Probability Variable (x):</label>
+                        <input type="text" class="form-control montserrat-alt" placeholder="Enter x" id="x" name="x">
+                    </div>
+                    <p class="text-dark text-center montserrat-alt">Choose Last Limit:</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="last" id="pos-infinity" value="pos-infinity" checked>
+                        <label class="form-check-label" for="limit1">
+                        To ∞  (eg. x ≥ -3)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="last" id="neg-infinity" value="neg-infinity">
+                        <label class="form-check-label" for="limit2">
+                        To -∞  (eg. x ≤ -3)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="2 selectt form-group" style="display: none">
+                    <p class="text-danger text-center montserrat-alt">Probability variable means 0 ≤ r ≤ 3<br>Here 0 is Lower and 3 is higher values which you have to input </p>
+                    <div class="form-group">
+                        <label for="x1">Enter Lower Probability Variable (x1):</label>
+                        <input type="text" class="form-control montserrat-alt" placeholder="Enter x1" id="x1" name="x1">
+                    </div>
+                    <div class="form-group">
+                        <label for="x2">Enter Higher Probability Variable (x2):</label>
+                        <input type="text" class="form-control montserrat-alt" placeholder="Enter x2" id="x2" name="x2">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary border border-dark" id="submit-button" name="submit" style="width:100%">Calculate</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('input[type="radio"]').click(function() {
+                    var inputValue = $(this).attr("value");
+                    var inputName = $(this).attr("name");
+
+                    if(inputName == "limit"){
+                        var targetBox = $("." + inputValue);
+                        $(".selectt").not(targetBox).hide();
+                        $(targetBox).show();
+                    }
+                });
+            });
+        </script>
+    </body>
+{% endblock %}
